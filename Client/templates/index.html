@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Personal Finance Tracker</h1>
+        <nav>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#details">Transaction Details</a></li>
+                <li><a href="#settings">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="overview">
+            <h2>Financial Overview</h2>
+            <p>Display general financial status here.</p>
+        </section>
+        <section id="details">
+            <h2>Transaction Details</h2>
+            <form id="transaction-form" action="{{ url_for('add_transaction') }}" method="POST">
+                <input type="text" name="description" placeholder="Description" required>
+                <input type="number" name="amount" placeholder="Amount" required>
+                <select name="type">
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                </select>
+                <button type="submit">Add Transaction</button>
+            </form>
+            <div id="transactions-list">
+                <ul>
+                    {% for transaction in transactions %}
+                    <li>{{ transaction.description }} - Amount: ${{ transaction.amount }} ({{ transaction.type }})</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+        <section id="settings">
+            <h2>Settings</h2>
+            <p>User settings and preferences.</p>
+        </section>
+    </main>
+    <footer>
+        <p>Copyright © 2021 Your Application's Name</p>
+    </footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
